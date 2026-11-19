@@ -30,7 +30,7 @@ export default async function handler(req, res) {
       method: "POST",
       headers,
       body: JSON.stringify({ model, messages, stream: false, think: false }),
-      signal: AbortSignal.timeout(55000),
+      signal: AbortSignal.timeout(Number(process.env.OLLAMA_TIMEOUT_MS) || 55000),
     });
     if (!r.ok) {
       const detail = (await r.text()).slice(0, 300);
